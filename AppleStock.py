@@ -27,6 +27,47 @@ AppleCurrentPrice = soup.select("span[data-reactid*='21']")[0].text
 
 
 """
+
+    look up tkinter to make application nicer*******
+    
+    do the function for simple moving averages and exponential averages *******
+        for example like def movingaverage(dataset,window)
+        window is number of days
+        alice will tell me intervals
+    
+    add a utility for adding moving average lines on the graphs  *********
+    fix y-axis grid
+    
+    make the pages scrollable or the algorithm data could pop up in a window where you have to input data
+    
+    
+    add something that will move along the graphs and display data (having a side box that will display other information for that data value)
+    
+    
+    
+    
+    ask alice for the other stocks, so far Apple i have (maybe Google, Amazon, Facebook, Tesla)
+    
+    
+    
+    customize home page to show whether stocks are good buys or not, will get this data from yahoo finance (having a nice table layout) ********
+        and find background image or color
+    
+    
+    
+    
+    
+    
+    
+    WORK ON ALGORITHM AFTER THAT*****
+    
+    -can use the esg score to help
+    
+    
+"""
+
+
+"""
 plt.figure(figsize=(12,8.5))
 plt.plot(dates,prices, label='Market Prices')
 plt.xlabel('Dates')
