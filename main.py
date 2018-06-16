@@ -8,7 +8,8 @@ import tkinter as tk
 from tkinter import ttk
 
 
-from AppleStock import AppleDates, ApplePrices, AppleCurrentPrice
+from AppleStock import AppleDates,ApplePrices, AppleCurrentPrice, \
+    AppleDailyPrices, AppleDailyDates, moving_averages13,moving_averages52
 
 
 LARGE_FONT = ("Verdana", 12)
@@ -69,6 +70,14 @@ class InitialPage(tk.Frame):
         button3.pack()
 
 
+
+
+
+
+
+
+
+
 class AppleStock(tk.Frame):
 
     def __init__(self, parent, controller):
@@ -83,14 +92,36 @@ class AppleStock(tk.Frame):
         button2.pack()
 
 
-        f = Figure(figsize=(14,8.1), dpi=100)
-        a = f.add_subplot(111)
-        a.plot(AppleDates,ApplePrices)
+        f = Figure(figsize=(14,8), dpi=100)
+        ax = f.add_subplot(111, label = "1")
+        ax2 = f.add_subplot(111, label = "2",frame_on=False)
+        ax3 = f.add_subplot(111, label = "3",frame_on=False)
 
         title = "Apple Stock Prices\nCurennt Price: " + AppleCurrentPrice
 
-        a.set_title(title)
-        a.tick_params('x', labelrotation =90)
+
+        #REGULAR PRICE
+        ax.plot(AppleDates,ApplePrices, 'b', label = "Stock Price")
+        ax.set_title(title)
+        ax.tick_params('x', labelrotation=90)
+        ax.set_ylim([140, 200])
+
+
+
+        #13 DAY MOVING AVERAGE
+        ax2.plot(AppleDailyDates[12:], moving_averages13, 'g--', label = "13 Day Moving Average")
+        ax2.axes.get_xaxis().set_visible(False)
+        ax2.set_ylim([140, 200])
+
+
+
+
+        #52 DAY MOVING AVERAGE
+        ax3.plot(AppleDailyDates[51:], moving_averages52, 'r--', label = "52 Day Moving Average")
+        ax3.axes.get_xaxis().set_visible(False)
+        ax3.set_ylim([140, 200])
+
+        f.legend()
 
         canvas = FigureCanvasTkAgg(f, self)
         canvas.show()
@@ -119,6 +150,11 @@ class PageOne(tk.Frame):
 
         button3 = ttk.Button(self, text="Apple Stock", command=lambda: controller.show_frame(AppleStock))
         button3.pack()
+
+
+
+
+
 
 
 

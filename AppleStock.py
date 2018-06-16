@@ -2,6 +2,7 @@
 import csv
 import requests
 import bs4
+from decimal import Decimal
 
 AppleDates = []
 ApplePrices = []
@@ -13,16 +14,57 @@ with open('stockInfo/AAPL (1).csv', 'r') as csvfile:
     for row in plots:
         if count == 1:
             AppleDates.append(row[0])
-            ApplePrices.append(int(float(row[1])))
+            ApplePrices.append(float(round(Decimal(row[1]), 2)))
         else:
             count = 1
-
 
 
 res = requests.get('https://finance.yahoo.com/quote/AAPL?p=AAPL')
 
 soup = bs4.BeautifulSoup(res.text, 'lxml')
 AppleCurrentPrice = soup.select("span[data-reactid*='21']")[0].text
+
+
+
+
+##SIMPLE MOVING AVERAGE
+
+AppleDailyDates = []
+AppleDailyPrices = []
+
+count1 = 0
+
+with open('stockInfo/FullYearDailyAppleData.csv', 'r') as csvfile:
+    plots = csv.reader(csvfile, delimiter=',')
+    for row in plots:
+        if count1 == 1:
+            AppleDailyDates.append(row[0])
+            AppleDailyPrices.append(float(round(Decimal(row[1]), 2)))
+        else:
+            count1 = 1
+
+
+
+
+##13 DAY MOVING AVERAGE
+moving_averages13 = []
+
+for i in range(13, len(AppleDailyPrices)+1):
+    new13 = AppleDailyPrices[(i-13) : (i)]
+    moving_averages13.append(round((sum(new13))/(13.0),2))
+
+
+
+
+##52 DAY MOVING AVERAGE
+moving_averages52 = []
+
+for i in range(52, len(AppleDailyPrices)+1):
+    new52 = AppleDailyPrices[(i-52) : (i)]
+    moving_averages52.append(round((sum(new52))/(52.0),2))
+
+
+
 
 
 """
@@ -61,7 +103,7 @@ AppleCurrentPrice = soup.select("span[data-reactid*='21']")[0].text
     WORK ON ALGORITHM AFTER THAT*****
     
     -can use the esg score to help
-    
+    use line of best fit
     
 """
 
