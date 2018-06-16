@@ -4,6 +4,9 @@ import requests
 import bs4
 from decimal import Decimal
 
+
+
+#STORING DATA FROM CSV FILES
 AppleDates = []
 ApplePrices = []
 
@@ -19,6 +22,9 @@ with open('stockInfo/AAPL (1).csv', 'r') as csvfile:
             count = 1
 
 
+
+
+#SCRAPING FOR CURRENT PRICE
 res = requests.get('https://finance.yahoo.com/quote/AAPL?p=AAPL')
 
 soup = bs4.BeautifulSoup(res.text, 'lxml')
@@ -47,21 +53,21 @@ with open('stockInfo/FullYearDailyAppleData.csv', 'r') as csvfile:
 
 
 ##13 DAY MOVING AVERAGE
-moving_averages13 = []
+apple_moving_averages13 = []
 
 for i in range(13, len(AppleDailyPrices)+1):
     new13 = AppleDailyPrices[(i-13) : (i)]
-    moving_averages13.append(round((sum(new13))/(13.0),2))
+    apple_moving_averages13.append(round((sum(new13))/(13.0),2))
 
 
 
 
 ##52 DAY MOVING AVERAGE
-moving_averages52 = []
+apple_moving_averages52 = []
 
 for i in range(52, len(AppleDailyPrices)+1):
     new52 = AppleDailyPrices[(i-52) : (i)]
-    moving_averages52.append(round((sum(new52))/(52.0),2))
+    apple_moving_averages52.append(round((sum(new52))/(52.0),2))
 
 
 
@@ -71,13 +77,7 @@ for i in range(52, len(AppleDailyPrices)+1):
 
     look up tkinter to make application nicer*******
     
-    do the function for simple moving averages and exponential averages *******
-        for example like def movingaverage(dataset,window)
-        window is number of days
-        alice will tell me intervals
     
-    add a utility for adding moving average lines on the graphs  *********
-    fix y-axis grid
     
     make the pages scrollable or the algorithm data could pop up in a window where you have to input data
     
@@ -87,7 +87,6 @@ for i in range(52, len(AppleDailyPrices)+1):
     
     
     
-    ask alice for the other stocks, so far Apple i have (maybe Google, Amazon, Facebook, Tesla)
     
     
     
