@@ -25,7 +25,6 @@ soup = bs4.BeautifulSoup(res.text, 'lxml')
 AppleCurrentPrice = soup.select("span[data-reactid*='21']")[0].text
 
 
-
 """
 
     look up tkinter to make application nicer*******
