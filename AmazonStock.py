@@ -2,11 +2,12 @@ import csv
 import requests
 import bs4
 from decimal import Decimal
-
+from Algorithm import *
 
 #STORING DATA FROM CSV FILES
 AmazonDates = []
 AmazonPrices = []
+
 
 count = 0
 
@@ -66,3 +67,26 @@ amazon_moving_averages52 = []
 for i in range(52, len(AmazonDailyPrices)+1):
     new52 = AmazonDailyPrices[(i-52) : (i)]
     amazon_moving_averages52.append(round((sum(new52))/(52.0),2))
+
+
+
+
+#NEXT YEAR ESTIMATE
+
+soup1 = bs4.BeautifulSoup(res.text, 'lxml')
+amazon_nextyearest = soup1.select("span[data-reactid*='90']")[0].text
+
+
+
+
+#RETURN ON ASSETS
+res1 = requests.get('https://finance.yahoo.com/quote/AMZN/key-statistics?p=AMZN')
+
+soup2 = bs4.BeautifulSoup(res1.text, 'lxml')
+amazon_returnassets = soup2.select("td[data-reactid*='133']")[0].text
+
+
+#VOLUME
+
+soup3 = bs4.BeautifulSoup(res.text, 'lxml')
+amazon_volume = soup1.select("span[data-reactid*='41']")[0].text

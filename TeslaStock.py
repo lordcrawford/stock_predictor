@@ -66,3 +66,28 @@ tesla_moving_averages52 = []
 for i in range(52, len(TeslaDailyPrices)+1):
     new52 = TeslaDailyPrices[(i-52) : (i)]
     tesla_moving_averages52.append(round((sum(new52))/(52.0),2))
+
+
+
+
+
+
+#NEXT YEAR ESTIMATE
+
+soup1 = bs4.BeautifulSoup(res.text, 'lxml')
+tesla_nextyearest = soup1.select("span[data-reactid*='90']")[0].text
+
+
+
+
+#RETURN ON ASSETS
+res1 = requests.get('https://finance.yahoo.com/quote/TSLA/key-statistics?p=TSLA')
+
+soup2 = bs4.BeautifulSoup(res1.text, 'lxml')
+tesla_returnassets = soup2.select("td[data-reactid*='134']")[0].text
+
+
+#VOLUME
+
+soup3 = bs4.BeautifulSoup(res.text, 'lxml')
+tesla_volume = soup1.select("span[data-reactid*='41']")[0].text

@@ -3,6 +3,7 @@ import csv
 import requests
 import bs4
 from decimal import Decimal
+from Algorithm import *
 
 
 
@@ -73,13 +74,32 @@ for i in range(52, len(AppleDailyPrices)+1):
 
 
 
-"""
 
-    look up tkinter to make application nicer*******
+
+#NEXT YEAR ESTIMATE
+
+soup1 = bs4.BeautifulSoup(res.text, 'lxml')
+apple_nextyearest = soup1.select("span[data-reactid*='90']")[0].text
+
+
+
+
+#RETURN ON ASSETS
+res1 = requests.get('https://finance.yahoo.com/quote/AAPL/key-statistics?p=AAPL')
+
+soup2 = bs4.BeautifulSoup(res1.text, 'lxml')
+apple_returnassets = soup2.select("td[data-reactid*='133']")[0].text
+
+
+
+#VOLUME
+
+soup3 = bs4.BeautifulSoup(res.text, 'lxml')
+apple_volume = soup1.select("span[data-reactid*='41']")[0].text
+
+
+"""
     
-    
-    
-    make the pages scrollable or the algorithm data could pop up in a window where you have to input data
     
     
     add something that will move along the graphs and display data (having a side box that will display other information for that data value)
